@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Reservas</title>
+    <link rel="icon" href="/hotel.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link href="./reservation.css" rel="stylesheet" />
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container-fluid">
+            <button class="btn-toggle-sidebar" onclick="toggleSidebar()">
+                <i class="bi bi-list"></i>
+            </button>
+            <a class="navbar-brand" href="#">HotelApp</a>
+            <button id="logoutBtn" class="btn btn-danger btn-sm ms-2">
+                Cerrar sesión
+            </button>
+        </div>
+    </nav>
+
+    <div class="sidebar" id="sidebar">
+        <a href="/templates/reservation/reservation.html"><i class="bi bi-calendar-check"></i> Reservas</a>
+        <a href="/templates/room/room.html"><i class="bi bi-door-closed"></i> Habitaciones</a>
+        <a href="/templates/clients/clients.html"><i class="bi bi-people"></i> Clientes</a>
+        <a href="/templates/user/user.html"><i class="bi bi-person-gear"></i> Usuarios</a>
+        <a href="/templates/dashboard/dashboard.html"><i class="bi bi-bar-chart-line"></i> Dashboard</a>
+    </div>
+
+    <div class="main-content" id="main-content">
+        <div class="container my-5">
+            <h2 class="mb-4 text-center">Gestión de Reservas</h2>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <button class="btn btn-custom" onclick="openReservationModal()">+ Crear Reserva</button>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle text-center">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Cliente</th>
+                            <th>Habitación</th>
+                            <th>Check-In</th>
+                            <th>Check-Out</th>
+                            <th>Total</th>
+                            <th>Estado</th>
+                            <th>usuario</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reservationTableBody"></tbody>
+                </table>
+            </div>
+            <nav aria-label="Paginación de reservas">
+                <ul class="pagination justify-content-center" id="pagination"></ul>
+            </nav>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="reservationModal" tabindex="-1" aria-labelledby="reservationModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="border-radius: 1rem;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reservationModalLabel">Crear / Editar Reserva</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="reservationForm">
+                        <input type="hidden" id="reservationId">
+                        <div class="mb-3">
+                            <label class="form-label">Cliente</label>
+                            <select class="form-select" id="client_id" required>
+                                <option value="">Seleccionar...</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Habitación</label>
+                            <select class="form-select" id="room_id" required>
+                                <option value="">Seleccionar...</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">usuario</label>
+                            <select class="form-select" id="user_id" required>
+                                <option value="">Seleccionar...</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Estado</label>
+                            <select class="form-select" id="reservation_status_id" required>
+                                <option value="">Seleccionar...</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Check-In</label>
+                            <input type="date" class="form-control" id="check_in_date" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Check-Out</label>
+                            <input type="date" class="form-control" id="check_out_date" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Nota</label>
+                            <input type="text" class="form-control" id="note" maxlength="100" />
+                        </div>
+                        <button type="submit" class="btn btn-custom w-100">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./reservation.js"></script>
+</body>
+
+</html>
